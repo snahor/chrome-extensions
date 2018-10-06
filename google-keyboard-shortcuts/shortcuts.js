@@ -1,5 +1,6 @@
 (() => {
   const $ = document.querySelector.bind(document);
+  const $$ = document.querySelectorAll.bind(document);
 
   class PageNavigator {
     constructor($searchBox, $results, $next, $previous) {
@@ -33,6 +34,10 @@
           case 'Slash':
             if (!this.isSearchBoxFocused) {
               event.preventDefault();
+              const value = this.$searchBox.value;
+              if (!!value && value[value.length - 1] !== ' ') {
+                this.$searchBox.value += ' ';
+              }
               const length = this.$searchBox.value.length;
               this.$searchBox.setSelectionRange(length, length);
               this.$searchBox.focus();
@@ -67,13 +72,15 @@
     // $searchBox,
     $('#lst-ib'),
     // $results,
-    [...document.querySelectorAll('.bkWMgd')].reduce(
+    [...document.querySelectorAll('div.bkWMgd, div.card-section')].reduce(
       ($links, $div) => [
         ...$links,
-        // old style results
-        ...$div.querySelectorAll('h3.r a'),
-        // new style results e.g. stackoverflow results
-        ...$div.querySelectorAll('.zjbNbe a'),
+        // regular results and childs
+        ...$div.querySelectorAll('.r a:not([id]):not([class=fl])'),
+        // cards
+        ...$div.querySelectorAll('g-inner-card a'),
+        // bottom links
+        ...$div.querySelectorAll('.brs_col a'),
       ],
       [],
     ),
