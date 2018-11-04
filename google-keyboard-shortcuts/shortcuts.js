@@ -70,7 +70,7 @@
 
   new PageNavigator(
     // $searchBox,
-    $('#lst-ib'),
+    $('input[type=text][name=q]'),
     // $results,
     [...document.querySelectorAll('div.bkWMgd, div.card-section')].reduce(
       ($links, $div) => [
