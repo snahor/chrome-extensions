@@ -17,7 +17,7 @@
     }
 
     previous() {
-      this.$previous.click();
+      this.$previous && this.$previous.click();
     }
 
     next() {
@@ -29,22 +29,22 @@
     }
 
     setUpEventListener() {
-      document.addEventListener('keydown', event => {
+      document.addEventListener("keydown", event => {
         switch (event.code) {
-          case 'Slash':
+          case "Slash":
             if (!this.isSearchBoxFocused) {
               event.preventDefault();
               const value = this.$searchBox.value;
-              if (!!value && value[value.length - 1] !== ' ') {
-                this.$searchBox.value += ' ';
+              if (!!value && value[value.length - 1] !== " ") {
+                this.$searchBox.value += " ";
               }
               const length = this.$searchBox.value.length;
               this.$searchBox.setSelectionRange(length, length);
               this.$searchBox.focus();
             }
             break;
-          case 'ArrowDown':
-          case 'KeyJ':
+          case "ArrowDown":
+          case "KeyJ":
             if (this.isSearchBoxFocused) {
               return;
             }
@@ -52,8 +52,8 @@
               ? this.next()
               : this.selectResult(++this.resultIndex);
             break;
-          case 'ArrowUp':
-          case 'KeyK':
+          case "ArrowUp":
+          case "KeyK":
             if (this.isSearchBoxFocused) {
               return;
             }
@@ -61,7 +61,7 @@
               ? this.selectResult(--this.resultIndex)
               : this.previous();
             break;
-          case 'Enter':
+          case "Enter":
             break;
         }
       });
@@ -70,23 +70,37 @@
 
   new PageNavigator(
     // $searchBox,
-    $('input[type=text][name=q]'),
+    $("input[type=text][name=q]"),
     // $results,
-    [...document.querySelectorAll('div.bkWMgd, div.card-section')].reduce(
+    // [...document.querySelectorAll('div.bkWMgd, div.card-section')].reduce(
+    [...document.querySelectorAll("div.g, div.card-section")].reduce(
       ($links, $div) => [
         ...$links,
+
+        // regular results
+        // --- 2021-01-16 ---
+        ...$div.querySelectorAll('div.yuRUbf a:not([class])'),
+        // --- 2020-09-30 ---
+        ...$div.querySelectorAll('div.rc a:not([class])'),
+
+        // subresults
+        ...$div.querySelectorAll('a[class=l]'),
+        // --- end ---
+
         // regular results and childs
-        ...$div.querySelectorAll('.r a:not([id]):not([class=fl])'),
+        // ...$div.querySelectorAll(".r a:not([id]):not([class=fl])"),
+
         // cards
-        ...$div.querySelectorAll('g-inner-card a'),
+        ...$div.querySelectorAll("g-inner-card a"),
+
         // bottom links
-        ...$div.querySelectorAll('.brs_col a'),
+        ...$div.querySelectorAll(".brs_col a")
       ],
-      [],
+      []
     ),
     // $next,
-    $('#pnnext'),
+    $("#pnnext"),
     // $previous
-    $('#pnprev'),
+    $("#pnprev")
   );
 })();
