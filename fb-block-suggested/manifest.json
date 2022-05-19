@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Facebook 'Suggested for you' Remover",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://facebook.com/*"
+      ],
+      "js": [
+        "main.js"
+      ]
+    }
+  ]
+}
