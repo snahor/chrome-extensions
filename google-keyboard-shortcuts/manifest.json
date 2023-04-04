@@ -1,11 +1,12 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Google Keyboard Shortcuts",
   "version": "0.1",
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com.pe/search?*"
+        "https://www.google.com.pe/search?*",
+        "https://www.google.com/search?*"
       ],
       "js": [
         "shortcuts.js"

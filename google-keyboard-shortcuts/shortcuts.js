@@ -70,7 +70,7 @@
 
   new PageNavigator(
     // $searchBox,
-    $("input[type=text][name=q]"),
+    $("[name=q]"),
     // $results,
     // [...document.querySelectorAll('div.bkWMgd, div.card-section')].reduce(
     [...document.querySelectorAll("div.g, div.card-section")].reduce(
