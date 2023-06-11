@@ -1,8 +1,20 @@
 (() => {
-  const textToIgnore = 'Suggested for You';
-  const rgx = new RegExp(textToIgnore, 'i');
+  const rgx = new RegExp('suggested for you', 'i');
 
-  document.addEventListener('scroll', () =>
-    document.querySelectorAll('div[data-pagelet="FeedUnit_{n}"]')
-      .forEach($div => $div.innerHTML.match(rgx) && ($div.innerHTML = '')));
+  document.addEventListener('scroll', () => {
+    const divs = document.querySelectorAll('div.x1lliihq:not([data-visited])');
+    console.debug(`divs matched: ${divs.length}`);
+
+    divs.forEach(div => {
+      div.dataset.visited = "1";
+      for (let span of div.querySelectorAll('span')) {
+        if (span.innerHTML.match(rgx)) {
+          // Removing the content may cause an error in the page, hiding it seems safer.
+          // div.innerHTML = '';
+          div.style.display = 'none';
+          return;
+        }
+      }
+    })
+  });
 })();
