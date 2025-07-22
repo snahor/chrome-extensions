@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Number of tabs",
+  "version": "0.1",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "main.js"
+  },
+  "action": {
+    "default_title": "# of tabs"
+  }
+}
